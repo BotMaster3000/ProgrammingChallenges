@@ -8,6 +8,6 @@ namespace MarkovChainSentenceGenerator.Interfaces
 {
     public interface IDataCollector
     {
-        IWordModel[] ParseDataFromFile();
+        IWordModel[] ParseDataFromFile(string fileName);
     }
 }
