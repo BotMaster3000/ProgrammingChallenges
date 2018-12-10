@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8F53E041-FFE8-47FE-875F-5919EA78F0EC}</ProjectGuid>
+    <ProjectGuid>{AFDAA621-0826-4012-B07F-0C1387E58449}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ProgrammingChallenges</RootNamespace>
-    <AssemblyName>ProgrammingChallenges</AssemblyName>
+    <RootNamespace>MarkovChainSentenceGenerator</RootNamespace>
+    <AssemblyName>MarkovChainSentenceGenerator</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

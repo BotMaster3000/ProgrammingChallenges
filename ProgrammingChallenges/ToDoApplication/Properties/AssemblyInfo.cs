@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Allgemeine Informationen über eine Assembly werden über die folgenden
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
-[assembly: AssemblyTitle("ProgrammingChallenges")]
+[assembly: AssemblyTitle("ToDoApplication")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ProgrammingChallenges")]
+[assembly: AssemblyProduct("ToDoApplication")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Die folgende GUID bestimmt die ID der Typbibliothek, wenn dieses Projekt für COM verfügbar gemacht wird
-[assembly: Guid("8f53e041-ffe8-47fe-875f-5919ea78f0ec")]
+[assembly: Guid("33a6d94b-0d16-4a74-b8b0-52497bc25637")]
 
 // Versionsinformationen für eine Assembly bestehen aus den folgenden vier Werten:
 //
