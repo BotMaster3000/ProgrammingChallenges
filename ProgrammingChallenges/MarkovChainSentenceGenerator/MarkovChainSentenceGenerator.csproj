@@ -43,8 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IChainSentenceGenerator.cs" />
     <Compile Include="Interfaces\IDataCollector.cs" />
     <Compile Include="Interfaces\IWordModel.cs" />
+    <Compile Include="Logic\ChainSentenceGenerator.cs" />
     <Compile Include="Logic\DataCollector.cs" />
     <Compile Include="Models\WordModel.cs" />
     <Compile Include="Program.cs" />
