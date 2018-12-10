@@ -9,11 +9,13 @@ namespace MarkovChainSentenceGenerator.Logic
 {
     public class ChainSentenceGenerator : IChainSentenceGenerator
     {
+        public Random rand { get; set; } = new Random();
+
         public IWordModel[] WordModels { get; set; }
 
         public string GenerateSentence()
         {
-            return "";
+
         }
     }
 }
