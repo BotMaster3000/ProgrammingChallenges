@@ -9,7 +9,7 @@ namespace MarkovChainSentenceGenerator.Models
 {
     public class WordModel : IWordModel
     {
-        public string Word { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Dictionary<string, int> WordAndOccurance { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Word { get; set; }
+        public Dictionary<string, int> WordAndOccurance { get; set; } = new Dictionary<string, int>();
     }
 }
