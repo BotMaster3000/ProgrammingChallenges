@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ToDoApplication
+namespace ToDoApplicationTests
 {
-    public class Program
+    class ProgramTests
     {
-        public static void Main(string[] args)
-        {
-        }
     }
 }
