@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkovChainSentenceGenerato
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoApplication", "ToDoApplication\ToDoApplication.csproj", "{33A6D94B-0D16-4A74-B8B0-52497BC25637}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkovChainSentenceGeneratorTests", "MarkovChainSentenceGeneratorTests\MarkovChainSentenceGeneratorTests.csproj", "{168729C8-421B-43EB-94AF-5839C6166C96}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{33A6D94B-0D16-4A74-B8B0-52497BC25637}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33A6D94B-0D16-4A74-B8B0-52497BC25637}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33A6D94B-0D16-4A74-B8B0-52497BC25637}.Release|Any CPU.Build.0 = Release|Any CPU
+		{168729C8-421B-43EB-94AF-5839C6166C96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{168729C8-421B-43EB-94AF-5839C6166C96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{168729C8-421B-43EB-94AF-5839C6166C96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{168729C8-421B-43EB-94AF-5839C6166C96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
