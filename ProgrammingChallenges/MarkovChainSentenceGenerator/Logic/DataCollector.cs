@@ -34,7 +34,7 @@ namespace MarkovChainSentenceGenerator.Logic
 
             string[] words = GetWords(fileString);
 
-            IWordModel[] wordModels = GetWordModels(words);
+            IWordModel[] wordModels = GetWordModelsFromUniqueWords(words);
 
             CountNextWordsOccurances(wordModels, words);
 
@@ -51,7 +51,7 @@ namespace MarkovChainSentenceGenerator.Logic
             return inputString.Split(' ');
         }
 
-        private IWordModel[] GetWordModels(string[] words)
+        private IWordModel[] GetWordModelsFromUniqueWords(string[] words)
         {
             List<string> usedWords = new List<string>();
             List<IWordModel> wordModelList = new List<IWordModel>();
@@ -69,11 +69,13 @@ namespace MarkovChainSentenceGenerator.Logic
 
         private void CountNextWordsOccurances(IWordModel[] wordModels, string[] words)
         {
+            int wordsLength = words.Length; // Performance
             foreach(IWordModel wordModel in wordModels)
             {
-                for (int i = 0; i < words.Length; i++)
+                string currentWord = wordModel.Word; // Performance
+                for (int i = 0; i < wordsLength; i++)
                 {
-                    if (wordModel.Word == words[i] && i + 1 < words.Length)
+                    if (currentWord == words[i] && i + 1 < wordsLength)
                     {
                         if (!wordModel.WordAndOccurance.Keys.Contains(words[i + 1]))
                         {
