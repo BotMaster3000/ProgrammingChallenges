@@ -1,18 +1,18 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ToDoApplication;
+using ToDoApplication.Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ToDoApplication.Tests
+namespace ToDoApplication.Logic.Tests
 {
     [TestClass()]
-    public class ProgramTests
+    public class ToDoListHandlerTests
     {
         [TestMethod()]
-        public void MainTest()
+        public void AddEntryTest()
         {
             Assert.Fail();
         }
