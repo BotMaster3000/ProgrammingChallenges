@@ -30,7 +30,7 @@ namespace MarkovChainSentenceGenerator.Logic
 
         private IWordModel[] GetWordModelArray()
         {
-            string fileString = GetFileAsString();
+            string fileString = GetFileAsString().Trim().Replace("  ", " ");
 
             string[] words = GetWords(fileString);
 
