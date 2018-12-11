@@ -8,13 +8,13 @@ namespace ToDoApplication.Interfaces
 {
     public interface IToDoListHandler
     {
-        List<IEntryModel> EntryModels { get; set; }
+        List<IEntryModel> EntryModelList { get; set; }
 
         void LoadEntries();
         void SaveEntries();
         void DisplayEntries();
         void DisplayOldEntries();
-        void AddEntry();
-        void RemoveEntry();
+        void AddEntry(string name, DateTime dateTime);
+        void RemoveEntry(string name, DateTime dateTime);
     }
 }
