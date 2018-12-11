@@ -15,25 +15,34 @@ namespace MarkovChainSentenceGenerator.Logic
 
         public string GenerateSentence()
         {
-            IWordModel currentWord = GetRandomWord();
-            string returnSentence = currentWord.Word;
-
-            for (int i = 0; i < 10; ++i)
+            if (WordModelsNotNullOrEmpty())
             {
-                string[] wordPool = null;
-                wordPool = GenerateWordPool(currentWord);
-                while (wordPool?.Length == 0)
+                IWordModel currentWord = GetRandomWord();
+                string returnSentence = currentWord.Word;
+
+                for (int i = 0; i < 10; ++i)
                 {
-                    currentWord = GetRandomWord();
+                    string[] wordPool = null;
                     wordPool = GenerateWordPool(currentWord);
+                    while (wordPool?.Length == 0)
+                    {
+                        currentWord = GetRandomWord();
+                        wordPool = GenerateWordPool(currentWord);
+                    }
+
+                    string chosenWord = wordPool[rand.Next(0, wordPool.Length)];
+                    returnSentence += " " + chosenWord;
+                    currentWord = GetNextWordModel(chosenWord);
                 }
 
-                string chosenWord = wordPool[rand.Next(0, wordPool.Length)];
-                returnSentence += " " + chosenWord;
-                currentWord = GetNextWordModel(chosenWord);
+                return returnSentence;
             }
+            return null;
+        }
 
-            return returnSentence;
+        private bool WordModelsNotNullOrEmpty()
+        {
+            return WordModels?.Length > 0;
         }
 
         private IWordModel GetRandomWord()

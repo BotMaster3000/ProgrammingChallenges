@@ -48,5 +48,12 @@ namespace MarkovChainSentenceGenerator.Logic.Tests
                 }
             }
         }
+
+        [TestMethod]
+        public void GenerateSentenceTest_NoWordModelsProvided()
+        {
+            ChainSentenceGenerator sentenceGenerator = new ChainSentenceGenerator();
+            Assert.AreEqual(null, sentenceGenerator.GenerateSentence());
+        }
     }
 }
