@@ -11,6 +11,7 @@ namespace ToDoApplication.Interfaces
         List<IEntryModel> EntryModels { get; set; }
 
         void LoadEntries();
+        void SaveEntries();
         void DisplayEntries();
         void DisplayOldEntries();
         void AddEntry();
