@@ -29,34 +29,24 @@ namespace ToDoApplication.Logic.Tests
         }
 
         [TestMethod]
-        public void AddEntryTest_InvalidEventNames()
+        public void AddEntryTest_NullAsEventName_ThrowsArgumentException()
         {
             ToDoListHandler handler = new ToDoListHandler();
-            List<string> errorList = new List<string>();
-            try
-            {
-                handler.AddEntry("", DateTime.Now);
-                errorList.Add("Accepted empty string as Entry");
-            }
-            catch { }
-            try
-            {
-                handler.AddEntry(null, DateTime.Now);
-                errorList.Add("Accepted null as Entry");
-            }
-            catch { }
-            try
-            {
-                handler.AddEntry(" ", DateTime.Now);
-                errorList.Add("Accepted whitespace as Entry");
-            }
+            Assert.ThrowsException<ArgumentException>(() => handler.AddEntry(null, DateTime.Now));
+        }
 
-            catch { }
+        [TestMethod]
+        public void AddEntryTest_EmtpyStringAsEventName_ThrowsArgumentException()
+        {
+            ToDoListHandler handler = new ToDoListHandler();
+            Assert.ThrowsException<ArgumentException>(() => handler.AddEntry("", DateTime.Now));
+        }
 
-            if (errorList.Count > 0)
-            {
-                Assert.Fail($"{errorList.Count} Errors: {String.Join(";", errorList)}");
-            }
+        [TestMethod]
+        public void AddEntryTest_WhitespaceAsEventName_ThrowsArgumentException()
+        {
+            ToDoListHandler handler = new ToDoListHandler();
+            Assert.ThrowsException<ArgumentException>(() => handler.AddEntry(" ", DateTime.Now));
         }
     }
 }
