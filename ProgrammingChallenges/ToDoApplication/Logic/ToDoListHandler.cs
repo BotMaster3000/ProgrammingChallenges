@@ -53,7 +53,7 @@ namespace ToDoApplication.Logic
             return !string.IsNullOrWhiteSpace(name);
         }
 
-        public void DisplayEntries(DateTime fromDate, DateTime toDate)
+        public IEntryModel[] GetEntries(DateTime fromDate, DateTime toDate)
         {
             throw new NotImplementedException();
         }
