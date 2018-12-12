@@ -54,12 +54,7 @@ namespace ToDoApplication.Logic
             }
         }
 
-        public void DisplayEntries()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DisplayOldEntries()
+        public void DisplayEntries(DateTime fromDate, DateTime toDate)
         {
             throw new NotImplementedException();
         }
@@ -68,7 +63,6 @@ namespace ToDoApplication.Logic
         {
             throw new NotImplementedException();
         }
-
 
         public void SaveEntries()
         {

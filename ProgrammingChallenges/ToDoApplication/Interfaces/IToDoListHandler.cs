@@ -12,8 +12,7 @@ namespace ToDoApplication.Interfaces
 
         void LoadEntries();
         void SaveEntries();
-        void DisplayEntries();
-        void DisplayOldEntries();
+        void DisplayEntries(DateTime fromDate, DateTime toDate);
         void AddEntry(string name, DateTime dateTime);
         void RemoveEntry(string name, DateTime dateTime);
     }
