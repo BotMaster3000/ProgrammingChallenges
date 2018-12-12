@@ -14,44 +14,43 @@ namespace ToDoApplication.Logic
 
         public void AddEntry(string name, DateTime dateTime)
         {
-            if (IsValidEventName(name))
-            {
-                EntryModel currentEntryModel = new EntryModel()
-                {
-                    EventName = name,
-                    DueDate = dateTime,
-                };
+            ThrowArgumentExceptionIfNotValidEventName(name);
 
-                EntryModelList.Add(currentEntryModel);
-            }
-            else
+            EntryModel currentEntryModel = new EntryModel()
             {
-                throw new ArgumentException($"Input Invalid: '{name}'");
+                EventName = name,
+                DueDate = dateTime,
+            };
+
+            EntryModelList.Add(currentEntryModel);
+        }
+
+
+        public void RemoveEntry(string name, DateTime dateTime)
+        {
+            ThrowArgumentExceptionIfNotValidEventName(name);
+
+            for (int i = 0; i < EntryModelList.Count; i++)
+            {
+                if (EntryModelList[i].EventName == name && EntryModelList[i].DueDate == dateTime)
+                {
+                    EntryModelList.Remove(EntryModelList[i]);
+                    break;
+                }
+            }
+        }
+
+        private void ThrowArgumentExceptionIfNotValidEventName(string name)
+        {
+            if (!IsValidEventName(name))
+            {
+                throw new ArgumentException($"Input Invalid: '{name}'. Expected non-null, non-emtpy, non-whitespace string");
             }
         }
 
         private bool IsValidEventName(string name)
         {
             return !string.IsNullOrWhiteSpace(name);
-        }
-
-        public void RemoveEntry(string name, DateTime dateTime)
-        {
-            if (IsValidEventName(name))
-            {
-                for (int i = 0; i < EntryModelList.Count; i++)
-                {
-                    if (EntryModelList[i].EventName == name && EntryModelList[i].DueDate == dateTime)
-                    {
-                        EntryModelList.Remove(EntryModelList[i]);
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                throw new ArgumentException($"Input Invalid: '{name}'");
-            }
         }
 
         public void DisplayEntries(DateTime fromDate, DateTime toDate)
