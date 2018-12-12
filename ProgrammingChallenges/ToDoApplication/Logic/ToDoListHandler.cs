@@ -55,7 +55,36 @@ namespace ToDoApplication.Logic
 
         public IEntryModel[] GetEntries(DateTime fromDate, DateTime toDate)
         {
-            throw new NotImplementedException();
+            ThrowArgumentExceptionIfFromDateLaterThanToDate(fromDate, toDate);
+
+            List<IEntryModel> returnEntryModels = new List<IEntryModel>();
+            foreach (IEntryModel entryModel in EntryModelList)
+            {
+                if (EntryIsInRange(entryModel, fromDate, toDate))
+                {
+                    returnEntryModels.Add(entryModel);
+                }
+            }
+            return returnEntryModels.ToArray();
+        }
+
+        private void ThrowArgumentExceptionIfFromDateLaterThanToDate(DateTime fromDate, DateTime toDate)
+        {
+            string dateTimeFormat = "yyyy-MM-dd HH:mm:ss";
+            if(DateTime.Compare(fromDate, toDate) > 0)
+            {
+                throw new ArgumentException($"Input Invalid: fromDate is later than toDate: {fromDate.ToString(dateTimeFormat)}|{toDate.ToString(dateTimeFormat)}");
+            }
+        }
+
+        private bool EntryIsInRange(IEntryModel entryModel, DateTime fromDate, DateTime toDate)
+        {
+            return entryModel.DueDate.Year >= fromDate.Year
+                    && entryModel.DueDate.Month >= fromDate.Month
+                    && entryModel.DueDate.Day >= fromDate.Day
+                    && entryModel.DueDate.Year <= toDate.Year
+                    && entryModel.DueDate.Month <= toDate.Month
+                    && entryModel.DueDate.Day <= toDate.Day;
         }
 
         public void LoadEntries()

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ToDoApplication.Interfaces;
 
 namespace ToDoApplication.Logic.Tests
 {
@@ -98,6 +99,26 @@ namespace ToDoApplication.Logic.Tests
         {
             ToDoListHandler handler = new ToDoListHandler();
             Assert.ThrowsException<ArgumentException>(() => handler.AddEntry(" ", DateTime.Now));
+        }
+
+        [TestMethod]
+        public void GetEntriesTest_ValidParameters()
+        {
+            const string eventName = "Test";
+            DateTime date = DateTime.Now;
+            ToDoListHandler handler = new ToDoListHandler();
+            handler.AddEntry(eventName, date);
+            IEntryModel[] entryModels = handler.GetEntries(DateTime.Today, DateTime.Today);
+            Assert.AreEqual(1, entryModels.Length);
+            Assert.IsTrue(entryModels[0].EventName == eventName);
+            Assert.IsTrue(entryModels[0].DueDate == date);
+        }
+
+        [TestMethod]
+        public void GetEntriesTest_FromDateLaterThanToDate_ThrowsArgumentException()
+        {
+            ToDoListHandler handler = new ToDoListHandler();
+            Assert.ThrowsException<ArgumentException>(() => handler.GetEntries(DateTime.Today.AddDays(1), DateTime.Now));
         }
     }
 }
