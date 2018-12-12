@@ -37,7 +37,21 @@ namespace ToDoApplication.Logic
 
         public void RemoveEntry(string name, DateTime dateTime)
         {
-            throw new NotImplementedException();
+            if (IsValidEventName(name))
+            {
+                for (int i = 0; i < EntryModelList.Count; i++)
+                {
+                    if (EntryModelList[i].EventName == name && EntryModelList[i].DueDate == dateTime)
+                    {
+                        EntryModelList.Remove(EntryModelList[i]);
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                throw new ArgumentException($"Input Invalid: '{name}'");
+            }
         }
 
         public void DisplayEntries()

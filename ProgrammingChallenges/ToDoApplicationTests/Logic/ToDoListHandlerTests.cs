@@ -48,5 +48,56 @@ namespace ToDoApplication.Logic.Tests
             ToDoListHandler handler = new ToDoListHandler();
             Assert.ThrowsException<ArgumentException>(() => handler.AddEntry(" ", DateTime.Now));
         }
+
+        [TestMethod]
+        public void RemoveEntryTest_ValidEntry()
+        {
+            const string eventName = "Test";
+            DateTime dateTime = DateTime.Now;
+            ToDoListHandler handler = new ToDoListHandler();
+            handler.AddEntry(eventName, dateTime);
+            Assert.IsTrue(handler.EntryModelList.Count == 1);
+            handler.RemoveEntry(eventName, dateTime);
+            Assert.IsTrue(handler.EntryModelList.Count == 0);
+        }
+
+        [TestMethod]
+        public void RemoveEntryTest_NoEntryInList_IgnoresRemove()
+        {
+            ToDoListHandler handler = new ToDoListHandler();
+            handler.RemoveEntry("Test", DateTime.Now);
+        }
+
+        [TestMethod]
+        public void RemoveEntryTest_EntryNotFound_IgnoresRemove()
+        {
+            const string eventName = "Test";
+            const string secondEventName = "Test2";
+            DateTime dateTime = DateTime.Now;
+            ToDoListHandler handler = new ToDoListHandler();
+            handler.AddEntry(secondEventName, dateTime);
+            handler.RemoveEntry(eventName, dateTime);
+        }
+
+        [TestMethod]
+        public void RemoveEntryTest_NullAsEntryName_ThrowsArgumentException()
+        {
+            ToDoListHandler handler = new ToDoListHandler();
+            Assert.ThrowsException<ArgumentException>(() => handler.AddEntry(null, DateTime.Now));
+        }
+
+        [TestMethod]
+        public void RemoveEntryTest_EmtpyStringAsEntryName_ThrowsArgumentException()
+        {
+            ToDoListHandler handler = new ToDoListHandler();
+            Assert.ThrowsException<ArgumentException>(() => handler.AddEntry("", DateTime.Now));
+        }
+
+        [TestMethod]
+        public void RemoveEntryTest_WhitespaceAsEventName_ThrowsArgumentException()
+        {
+            ToDoListHandler handler = new ToDoListHandler();
+            Assert.ThrowsException<ArgumentException>(() => handler.AddEntry(" ", DateTime.Now));
+        }
     }
 }
