@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,9 @@ namespace ToDoApplication.Logic
 {
     public class ToDoListHandler : IToDoListHandler
     {
+        public string FileName { get; } = "ToDoList_DataBase.txt";
+        private const string TempFileNameAppendix = "_temp";
+
         public List<IEntryModel> EntryModelList { get; set; } = new List<IEntryModel>();
 
         public void AddEntry(string name, DateTime dateTime)
@@ -71,7 +75,7 @@ namespace ToDoApplication.Logic
         private void ThrowArgumentExceptionIfFromDateLaterThanToDate(DateTime fromDate, DateTime toDate)
         {
             string dateTimeFormat = "yyyy-MM-dd HH:mm:ss";
-            if(DateTime.Compare(fromDate, toDate) > 0)
+            if (DateTime.Compare(fromDate, toDate) > 0)
             {
                 throw new ArgumentException($"Input Invalid: fromDate is later than toDate: {fromDate.ToString(dateTimeFormat)}|{toDate.ToString(dateTimeFormat)}");
             }
@@ -87,15 +91,46 @@ namespace ToDoApplication.Logic
                     && entryModel.DueDate.Day <= toDate.Day;
         }
 
+        public void SaveEntries()
+        {
+            int currentBatchSize = 0;
+            string currentAppendString = "";
+            foreach (IEntryModel entry in EntryModelList)
+            {
+                if (currentBatchSize >= 100)
+                {
+                    AppendEntriesToTempDataBase(currentAppendString);
+                    currentBatchSize = 0;
+                    currentAppendString = "";
+                }
+
+                currentAppendString += $"{entry.EventName};{entry.DueDate.ToString("yyyy-MM-dd HH:mm:ss")};{Environment.NewLine}";
+                ++currentBatchSize;
+            }
+
+            AppendEntriesToTempDataBase(currentAppendString);
+            DeleteOldDataBase();
+            RenameTempDataBaseToDataBase();
+        }
+
+        private void AppendEntriesToTempDataBase(string entryString)
+        {
+            File.AppendAllText(FileName + TempFileNameAppendix, entryString);
+        }
+
+        private void DeleteOldDataBase()
+        {
+            File.Delete(FileName);
+        }
+
+        private void RenameTempDataBaseToDataBase()
+        {
+            File.Move(FileName + TempFileNameAppendix, FileName);
+        }
+
         public void LoadEntries()
         {
             throw new NotImplementedException();
         }
-
-        public void SaveEntries()
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }

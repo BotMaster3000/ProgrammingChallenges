@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToDoApplication.Interfaces;
+using System.IO;
 
 namespace ToDoApplication.Logic.Tests
 {
@@ -21,7 +22,7 @@ namespace ToDoApplication.Logic.Tests
             ToDoListHandler handler = new ToDoListHandler();
             handler.AddEntry(entryName, DateTime.Now);
 
-            Interfaces.IEntryModel currentEntryModel = handler.EntryModelList[0];
+            IEntryModel currentEntryModel = handler.EntryModelList[0];
 
             const string dateTimeFormat = "yyyy-MM-dd HH:mm:ss";
 
@@ -136,6 +137,37 @@ namespace ToDoApplication.Logic.Tests
             Assert.AreEqual(1, returnEntryModels.Length);
             Assert.AreEqual(eventName, returnEntryModels[0].EventName);
             Assert.AreEqual(date1, returnEntryModels[0].DueDate);
+        }
+
+        [TestMethod]
+        public void SaveEntriesTest_SingleEntry_ShouldSave()
+        {
+            ToDoListHandler handler = new ToDoListHandler();
+            handler.AddEntry("Test", DateTime.Now);
+            handler.SaveEntries();
+            Assert.IsTrue(File.Exists(handler.FileName));
+            File.Delete(handler.FileName);
+        }
+
+        [TestMethod]
+        public void SaveEntriesTest_NoEntry_ShouldSave()
+        {
+            ToDoListHandler handler = new ToDoListHandler();
+            handler.SaveEntries();
+            Assert.IsTrue(File.Exists(handler.FileName));
+            File.Delete(handler.FileName);
+        }
+
+        [TestMethod]
+        public void SaveEntriesTest_MultipleEntries_ShouldSave()
+        {
+            ToDoListHandler handler = new ToDoListHandler();
+            handler.AddEntry("Test", DateTime.Now);
+            handler.AddEntry("Bla", DateTime.Now.AddDays(-3));
+            handler.AddEntry("Blub", DateTime.Now.AddDays(5));
+            handler.SaveEntries();
+            Assert.IsTrue(File.Exists(handler.FileName));
+            File.Delete(handler.FileName);
         }
     }
 }

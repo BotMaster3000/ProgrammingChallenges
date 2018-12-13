@@ -15,5 +15,7 @@ namespace ToDoApplication.Interfaces
         IEntryModel[] GetEntries(DateTime fromDate, DateTime toDate);
         void AddEntry(string name, DateTime dateTime);
         void RemoveEntry(string name, DateTime dateTime);
+
+        string FileName { get; }
     }
 }
