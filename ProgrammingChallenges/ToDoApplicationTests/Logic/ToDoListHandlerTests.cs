@@ -120,5 +120,22 @@ namespace ToDoApplication.Logic.Tests
             ToDoListHandler handler = new ToDoListHandler();
             Assert.ThrowsException<ArgumentException>(() => handler.GetEntries(DateTime.Today.AddDays(1), DateTime.Now));
         }
+
+        [TestMethod]
+        public void GetEntriesTest_MultipleEntries_OneEntryInRange()
+        {
+            const string eventName = "Test";
+            const string eventName2 = "Test2";
+            DateTime date1 = DateTime.Now;
+            DateTime date2 = DateTime.Now.AddDays(1);
+            ToDoListHandler handler = new ToDoListHandler();
+            handler.AddEntry(eventName, date1);
+            handler.AddEntry(eventName2, date2);
+            Assert.AreEqual(2, handler.EntryModelList.Count);
+            IEntryModel[] returnEntryModels = handler.GetEntries(date1, date1);
+            Assert.AreEqual(1, returnEntryModels.Length);
+            Assert.AreEqual(eventName, returnEntryModels[0].EventName);
+            Assert.AreEqual(date1, returnEntryModels[0].DueDate);
+        }
     }
 }
