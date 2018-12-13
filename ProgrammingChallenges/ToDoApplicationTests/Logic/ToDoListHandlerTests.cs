@@ -169,5 +169,67 @@ namespace ToDoApplication.Logic.Tests
             Assert.IsTrue(File.Exists(handler.FileName));
             File.Delete(handler.FileName);
         }
+
+        [TestMethod]
+        public void LoadEntriesTest_DatabaseExistingWithEntries_ShouldLoad()
+        {
+            Dictionary<string, DateTime> entryDict = new Dictionary<string, DateTime>()
+            {
+                { "Test", DateTime.Now },
+                { "Bla", DateTime.Now.AddDays(3)},
+            };
+
+            ToDoListHandler handler = new ToDoListHandler();
+            foreach (KeyValuePair<string, DateTime> entryNameAndDateTime in entryDict)
+            {
+                handler.AddEntry(entryNameAndDateTime.Key, entryNameAndDateTime.Value);
+            }
+            handler.SaveEntries();
+
+            handler = new ToDoListHandler();
+            handler.LoadEntries();
+            Assert.AreEqual(2, handler.EntryModelList.Count);
+            foreach (IEntryModel entry in handler.EntryModelList)
+            {
+                bool found = false;
+                foreach (KeyValuePair<string, DateTime> entryNameAndDateTime in entryDict)
+                {
+                    if (entry.EventName == entryNameAndDateTime.Key && entry.DueDate.ToString(handler.DateTimeFormat) == entryNameAndDateTime.Value.ToString(handler.DateTimeFormat))
+                    {
+                        found = true;
+                    }
+                }
+                if (!found)
+                {
+                    Assert.Fail("Entry not found in Database");
+                }
+            }
+
+            File.Delete(handler.FileName);
+        }
+
+        [TestMethod]
+        public void LoadEntriesTest_DatabaseExistingNoEntries_ShouldLoad()
+        {
+            ToDoListHandler handler = new ToDoListHandler();
+            handler.SaveEntries();
+            handler.LoadEntries();
+            Assert.AreEqual(0, handler.EntryModelList.Count);
+
+            File.Delete(handler.FileName);
+        }
+
+        [TestMethod]
+        public void LoadEntriesTest_DatabaseNotExisting_ThrowsException()
+        {
+            ToDoListHandler handler = new ToDoListHandler();
+            if (File.Exists(handler.FileName))
+            {
+                File.Delete(handler.FileName);
+            }
+            Assert.ThrowsException<FileNotFoundException>(() => handler.LoadEntries());
+
+            File.Delete(handler.FileName);
+        }
     }
 }

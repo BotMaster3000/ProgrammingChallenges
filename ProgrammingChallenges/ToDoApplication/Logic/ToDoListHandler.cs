@@ -12,7 +12,9 @@ namespace ToDoApplication.Logic
     public class ToDoListHandler : IToDoListHandler
     {
         public string FileName { get; } = "ToDoList_DataBase.txt";
+        public string DateTimeFormat { get; } = "yyyy-MM-dd HH:mm:ss";
         private const string TempFileNameAppendix = "_temp";
+        private const char DataSetSeparator = ';';
 
         public List<IEntryModel> EntryModelList { get; set; } = new List<IEntryModel>();
 
@@ -74,10 +76,9 @@ namespace ToDoApplication.Logic
 
         private void ThrowArgumentExceptionIfFromDateLaterThanToDate(DateTime fromDate, DateTime toDate)
         {
-            string dateTimeFormat = "yyyy-MM-dd HH:mm:ss";
             if (DateTime.Compare(fromDate, toDate) > 0)
             {
-                throw new ArgumentException($"Input Invalid: fromDate is later than toDate: {fromDate.ToString(dateTimeFormat)}|{toDate.ToString(dateTimeFormat)}");
+                throw new ArgumentException($"Input Invalid: fromDate is later than toDate: {fromDate.ToString(DateTimeFormat)}|{toDate.ToString(DateTimeFormat)}");
             }
         }
 
@@ -104,7 +105,7 @@ namespace ToDoApplication.Logic
                     currentAppendString = "";
                 }
 
-                currentAppendString += $"{entry.EventName};{entry.DueDate.ToString("yyyy-MM-dd HH:mm:ss")};{Environment.NewLine}";
+                currentAppendString += $"{entry.EventName};{entry.DueDate.ToString("yyyy-MM-dd HH:mm:ss")}{Environment.NewLine}";
                 ++currentBatchSize;
             }
 
@@ -130,7 +131,41 @@ namespace ToDoApplication.Logic
 
         public void LoadEntries()
         {
-            throw new NotImplementedException();
+            ThrowIfNoDataBaseExists();
+            string[] fileLines = GetAllDatabaseLines();
+            SetFileLinesAsEntryModels(fileLines);
+        }
+
+        private void ThrowIfNoDataBaseExists()
+        {
+            if (!File.Exists(FileName))
+            {
+                throw new FileNotFoundException($"The Database could not be found: {FileName}");
+            }
+        }
+
+        private string[] GetAllDatabaseLines()
+        {
+            return File.ReadAllLines(FileName);
+        }
+
+        private void SetFileLinesAsEntryModels(string[] fileLines)
+        {
+            EntryModelList.Clear();
+            foreach (string line in fileLines)
+            {
+                EntryModelList.Add(ParseLineToEntryModel(line));
+            }
+        }
+
+        private IEntryModel ParseLineToEntryModel(string line)
+        {
+            string[] splitDataSetLine = line.Split(DataSetSeparator);
+            return new EntryModel()
+            {
+                EventName = splitDataSetLine[0],
+                DueDate = DateTime.ParseExact(splitDataSetLine[1], DateTimeFormat, System.Globalization.CultureInfo.InvariantCulture),
+            };
         }
     }
 }
