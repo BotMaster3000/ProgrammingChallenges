@@ -140,6 +140,21 @@ namespace ToDoApplication.Logic.Tests
         }
 
         [TestMethod]
+        public void GetEntriesTest_GetByEventName_ReturnsEntry()
+        {
+            const string eventName = "Bla";
+            DateTime date = DateTime.Now;
+
+            ToDoListHandler handler = new ToDoListHandler();
+            handler.AddEntry(eventName, date);
+
+            IEntryModel[] entryModel = handler.GetEntries(eventName);
+            Assert.AreEqual(1, entryModel.Length);
+            Assert.AreEqual(eventName, entryModel[0].EventName);
+            Assert.AreEqual(date, entryModel[0].DueDate);
+        }
+
+        [TestMethod]
         public void SaveEntriesTest_SingleEntry_ShouldSave()
         {
             ToDoListHandler handler = new ToDoListHandler();

@@ -74,6 +74,20 @@ namespace ToDoApplication.Logic
             return returnEntryModels.ToArray();
         }
 
+
+        public IEntryModel[] GetEntries(string eventName)
+        {
+            List<IEntryModel> returnEntryModels = new List<IEntryModel>();
+            foreach(IEntryModel entryModel in EntryModelList)
+            {
+                if(entryModel.EventName == eventName)
+                {
+                    returnEntryModels.Add(entryModel);
+                }
+            }
+            return returnEntryModels.ToArray();
+        }
+
         private void ThrowArgumentExceptionIfFromDateLaterThanToDate(DateTime fromDate, DateTime toDate)
         {
             if (DateTime.Compare(fromDate, toDate) > 0)
