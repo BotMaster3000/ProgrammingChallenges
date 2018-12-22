@@ -13,7 +13,6 @@ namespace ToDoApplication.Interfaces
         void LoadEntries();
         void SaveEntries();
         IEntryModel[] GetEntries(DateTime fromDate, DateTime toDate);
-        IEntryModel[] GetEntries(string eventName);
         void AddEntry(string name, DateTime dateTime);
         void RemoveEntry(string name, DateTime dateTime);
 
