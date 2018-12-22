@@ -46,6 +46,7 @@
     <Compile Include="Interfaces\IEntryModel.cs" />
     <Compile Include="Interfaces\IToDoListHandler.cs" />
     <Compile Include="Logic\ToDoListHandler.cs" />
+    <Compile Include="Logic\UserHandler.cs" />
     <Compile Include="Models\EntryModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
